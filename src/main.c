@@ -8,8 +8,7 @@ int main(int argc, char const* argv[argc + 1])
 
     char buffer[512] = { '\0' };
 
-    while (!feof(stdin)) {
-        fgets(buffer, sizeof(buffer), stdin);
+    while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
         fputs(buffer, stdout);
     }
 
