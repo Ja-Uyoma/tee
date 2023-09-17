@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 /// \brief Print usage information
 void printHelp();
@@ -10,8 +11,16 @@ int main(int argc, char const* argv[argc + 1])
     char buffer[512] = { '\0' };
 
     if (argc == 1) {
+        int rv = 0;
+
         while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-            fputs(buffer, stdout);
+            if ((rv = fputs(buffer, stdout)) != EOF) {
+                continue;
+            }
+            else {
+                assert(ferror(stdout) && rv == EOF);
+                break;
+            }
         }
 
         if (ferror(stdin)) {
