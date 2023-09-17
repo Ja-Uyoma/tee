@@ -11,6 +11,11 @@ int main(int argc, char const* argv[argc + 1])
         while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
             fputs(buffer, stdout);
         }
+
+        if (ferror(stdin)) {
+            perror("fgets - Could not read from standard input.");
+            return EXIT_FAILURE;
+        }
     }
 
     return EXIT_SUCCESS;
