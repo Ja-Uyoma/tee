@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
+/// \brief Print usage information
+void printHelp();
 
 int main(int argc, char const* argv[argc + 1])
 {
-    (void) argv;
-
     char buffer[512] = { '\0' };
 
     if (argc == 1) {
@@ -17,6 +19,16 @@ int main(int argc, char const* argv[argc + 1])
             return EXIT_FAILURE;
         }
     }
+    
+    if (argc == 2 && strcmp(argv[1], "--help") == 0) {
+        printHelp();
+    }
 
     return EXIT_SUCCESS;
+}
+
+/// \brief Print usage information
+void printHelp()
+{
+
 }
