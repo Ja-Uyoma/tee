@@ -30,5 +30,9 @@ int main(int argc, char const* argv[argc + 1])
 /// \brief Print usage information
 void printHelp()
 {
-
+    printf(
+        "%s\n%s\n\n",
+        "Usage: tee [OPTION]... [FILE]...\0",
+        "Copy standard input to each FILE, and also to standard output.\0"
+    );
 }
