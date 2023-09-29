@@ -8,7 +8,7 @@ int main(int argc, char const* argv[argc + 1])
     char buffer[512] = { '\0' };
 
     if (argc == 1) {
-        int rv = echoToStdout(buffer, sizeof(buffer));
+        int rv = echoToStdout(buffer, sizeof buffer);
 
         if (rv != 0) {
             return EXIT_FAILURE;
