@@ -10,7 +10,7 @@
 int echoToStdout(char buffer[], int const bufsize);
 
 /// \brief Print usage information
-void printHelp();
+void printHelp(void);
 
 int main(int argc, char const* argv[argc + 1])
 {
@@ -54,7 +54,7 @@ int echoToStdout(char buffer[], int const bufsize)
 }
 
 /// \brief Print usage information
-void printHelp()
+void printHelp(void)
 {
     printf(
         "%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
