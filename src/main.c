@@ -3,14 +3,7 @@
 #include <string.h>
 #include <errno.h>
 
-/// \brief Copy standard input to standard output
-/// \param[in] buffer Storage location of data read from standard input
-/// \param[in] bufsize The size of the buffer
-/// \returns An int representing the error condition that occured
-int echoToStdout(char buffer[], int const bufsize);
-
-/// \brief Print usage information
-void printHelp(void);
+#include "tee.h"
 
 int main(int argc, char const* argv[argc + 1])
 {
