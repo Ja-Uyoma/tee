@@ -57,23 +57,23 @@ int echoToStdout(char buffer[], int const bufsize)
 void printHelp(void)
 {
     printf(
-        "%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
-        "Usage: tee [OPTION]... [FILE]...\0",
-        "Copy standard input to each FILE, and also to standard output.\0",
-        "-a, --append               append to the given FILEs, do not overwrite\0",
-        "-i, --ignore -interrupts   ignore interrupt signals\0",
-        "-p                         diagnose errors writing to non pipes\0",
-        "    --output-error[=MODE]  set behaviour on write error. See MODE below\0",
-        "    --help                 display this help and exit\0",
-        "    --version              output version information and exit\0",
-        "MODE determines behaviour with write errors on the outputs:\0",
-        "   'warn'          diagnose errors writing to any output\0",
-        "   'warn-nopipe'   diagnose errors writing to any output not a pipe\0",
-        "   'exit'          exit on error writing to any output\0",
-        "   'exit-nopipe'   exit on error writing to any output not a pipe\0",
-        "The default MODE for the -p option is 'warn-nopipe'.\0",
-        "The default operation when --output-error is not specified, is to\0",
-        "exit immediately on error writing to a pipe, and diagnose errors\0",
+        "%s\n",
+        "Usage: tee [OPTION]... [FILE]...\n"
+        "Copy standard input to each FILE, and also to standard output.\n\n"
+        "-a, --append               append to the given FILEs, do not overwrite\n"
+        "-i, --ignore -interrupts   ignore interrupt signals\n"
+        "-p                         diagnose errors writing to non pipes\n"
+        "    --output-error[=MODE]  set behaviour on write error. See MODE below\n"
+        "    --help                 display this help and exit\n"
+        "    --version              output version information and exit\n\n"
+        "MODE determines behaviour with write errors on the outputs:\n"
+        "   'warn'          diagnose errors writing to any output\n"
+        "   'warn-nopipe'   diagnose errors writing to any output not a pipe\n"
+        "   'exit'          exit on error writing to any output\n"
+        "   'exit-nopipe'   exit on error writing to any output not a pipe\n"
+        "The default MODE for the -p option is 'warn-nopipe'.\n"
+        "The default operation when --output-error is not specified, is to\n"
+        "exit immediately on error writing to a pipe, and diagnose errors\n"
         "writing to non pipe outputs.\0"
     );
 }
