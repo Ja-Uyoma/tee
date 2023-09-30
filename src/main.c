@@ -1,8 +1,6 @@
 #include "tee.h"
 
 #include <stdlib.h>
-#include <stdio.h>
-#include <getopt.h>
 
 int main(int argc, char* const argv[argc + 1])
 {
