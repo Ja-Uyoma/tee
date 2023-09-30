@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <errno.h>
+#include <getopt.h>
 
 /// \brief Copy standard input to standard output
 /// \param[in] buffer Storage location of data read from standard input
@@ -52,4 +53,46 @@ void printHelp(void)
         "exit immediately on error writing to a pipe, and diagnose errors\n"
         "writing to non pipe outputs.\0"
     );
+}
+
+/// \brief Handle program options
+/// \details This function changes the behaviour of the program depending on the options
+/// provided by the user as inputs. 
+/// For a full list of the options, call the program with option "--help"
+/// \param argc The number of command-line options passed to the program
+/// \param argv The array of command-line options passed to the program
+void handleProgramOptions(int argc, char* const argv[argc + 1])
+{
+    static struct option const longOptions[] = {
+        { .name = "help", .has_arg = no_argument, .flag = NULL, .val = 1 },
+        { 0, 0, 0, 0 }
+    };
+
+    int currentOption = 0;
+    int currentOptionIndex = 0;
+
+    while ((currentOption = getopt_long(argc, argv, "", longOptions, &currentOptionIndex)) != -1) {
+        switch (currentOption) {
+        case 0:
+            break;
+
+        case 1:
+            printHelp();
+            break;
+
+        default:
+            break;
+        }
+
+        // Print any remaining command-line arguments (not options)
+        if (optind < argc) {
+            printf("\n\n%s", "Non-option argv elements: ");
+
+            while (optind < argc) {
+                printf("%s", argv[optind++]);
+            }
+
+            puts("");
+        }
+    }
 }
