@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char const* argv[argc + 1])
+int main(int argc, char* const argv[argc + 1])
 {
     char buffer[512] = { '\0' };
 
