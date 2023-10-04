@@ -95,4 +95,35 @@ void handleProgramOptions(int argc, char* const argv[argc + 1])
             puts("");
         }
     }
+
+    if (currentOption == -1 && optind < argc) {
+        char buffer[256] = { '\0' };
+        FILE* files[argc - optind];
+        int optindCopy = optind;
+        
+        for (int i = 0; i < argc - optind; ++i) {
+            files[i] = fopen(argv[optindCopy++], "w");
+
+            if (!files[i]) {
+                fprintf(stderr, "Could not open file %s\n", argv[optind]);
+                continue;
+            }
+        }
+
+        while (fgets(buffer, sizeof buffer, stdin) != NULL) {
+            fputs(buffer, stdout);
+
+            for (size_t i = 0; i < (sizeof files / sizeof files[0]); ++i) {
+                if (files[i] != NULL) {
+                    fputs(buffer, files[i]);
+                }
+            }
+        }
+
+        for (size_t i = 0; i < sizeof files / sizeof files[0]; ++i) {
+            if (files[i] != NULL) {
+                fclose(files[i]);
+            }
+        }
+    }
 }
