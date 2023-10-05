@@ -16,6 +16,6 @@ void printHelp(void);
 /// For a full list of the options, call the program with option "--help"
 /// \param argc The number of command-line options passed to the program
 /// \param argv The array of command-line options passed to the program
-void handleProgramOptions(int argc, char* const argv[argc + 1]);
+void handleProgramOptions(int argc, char* const argv[]);
 
 #endif
