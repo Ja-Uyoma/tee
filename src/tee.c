@@ -55,6 +55,11 @@ void printHelp(void)
     );
 }
 
+/// \brief Null-initialize each element in the array of pointers to FILE
+/// \param[inout] files The array of pointers to FILE
+/// \param[in] arrayLength The length of the array
+static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength);
+
 /// \brief Handle program options
 /// \details This function changes the behaviour of the program depending on the options
 /// provided by the user as inputs. 
@@ -99,6 +104,9 @@ void handleProgramOptions(int argc, char* const argv[argc + 1])
     if (currentOption == -1 && optind < argc) {
         char buffer[256] = { '\0' };
         FILE* files[argc - optind];
+
+        nullInitialiseArrayOfFilePointers(files, sizeof files / sizeof files[0]);
+
         int optindCopy = optind;
         
         for (int i = 0; i < argc - optind; ++i) {
@@ -125,5 +133,15 @@ void handleProgramOptions(int argc, char* const argv[argc + 1])
                 fclose(files[i]);
             }
         }
+    }
+}
+
+/// \brief Null-initialize each element in the array of pointers to FILE
+/// \param[inout] files The array of pointers to FILE
+/// \param[in] arrayLength The length of the array
+static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength)
+{
+    for (size_t i = 0; i < arrayLength; ++i) {
+        files[i] = NULL;
     }
 }
