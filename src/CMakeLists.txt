@@ -1,13 +1,9 @@
 add_executable(tee)
 
-find_package(cmocka REQUIRED)
-
 target_sources(tee 
     PUBLIC main.c
     PRIVATE tee.h tee.c
 )
-
-target_link_libraries(tee cmocka::cmocka)
 
 target_compile_features(tee PUBLIC c_std_17)
 
