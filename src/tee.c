@@ -60,6 +60,14 @@ void printHelp(void)
 /// \param[in] arrayLength The length of the array
 static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength);
 
+/// \brief Handle any other non-option command-line arguments
+/// \details This function opens the files passed in as command-line arguments in write mode and then
+/// writes the text input from stdin to those files as well as to stdout
+///
+/// \param[in] argc The number of command-line arguments
+/// \param[in] argv The array containing the command-line arguments
+static void handleNonOptionArguments(int argc, char* const argv[]);
+
 /// \brief Handle program options
 /// \details This function changes the behaviour of the program depending on the options
 /// provided by the user as inputs. 
@@ -102,37 +110,7 @@ void handleProgramOptions(int argc, char* const argv[argc + 1])
     }
 
     if (currentOption == -1 && optind < argc) {
-        char buffer[256] = { '\0' };
-        FILE* files[argc - optind];
-
-        nullInitialiseArrayOfFilePointers(files, sizeof files / sizeof files[0]);
-
-        int optindCopy = optind;
-        
-        for (int i = 0; i < argc - optind; ++i) {
-            files[i] = fopen(argv[optindCopy++], "w");
-
-            if (!files[i]) {
-                fprintf(stderr, "Could not open file %s\n", argv[optind]);
-                continue;
-            }
-        }
-
-        while (fgets(buffer, sizeof buffer, stdin) != NULL) {
-            fputs(buffer, stdout);
-
-            for (size_t i = 0; i < (sizeof files / sizeof files[0]); ++i) {
-                if (files[i] != NULL) {
-                    fputs(buffer, files[i]);
-                }
-            }
-        }
-
-        for (size_t i = 0; i < sizeof files / sizeof files[0]; ++i) {
-            if (files[i] != NULL) {
-                fclose(files[i]);
-            }
-        }
+        handleNonOptionArguments(argc, argv);
     }
 }
 
@@ -144,4 +122,45 @@ static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength)
     for (size_t i = 0; i < arrayLength; ++i) {
         files[i] = NULL;
     }
+}
+
+/// \brief Handle any other non-option command-line arguments
+/// \details This function opens the files passed in as command-line arguments in write mode and then
+/// writes the text input from stdin to those files as well as to stdout
+///
+/// \param[in] argc The number of command-line arguments
+/// \param[in] argv The array containing the command-line arguments
+static void handleNonOptionArguments(int argc, char* const argv[])
+{
+    char buffer[256] = { '\0' };
+    FILE* files[argc - optind];
+
+    nullInitialiseArrayOfFilePointers(files, sizeof files / sizeof files[0]);
+
+    int optindCopy = optind;
+    
+    for (int i = 0; i < argc - optind; ++i) {
+        files[i] = fopen(argv[optindCopy++], "w");
+
+        if (!files[i]) {
+            fprintf(stderr, "Could not open file %s\n", argv[optind]);
+            continue;
+        }
+    }
+
+    while (fgets(buffer, sizeof buffer, stdin) != NULL) {
+        fputs(buffer, stdout);
+
+        for (size_t i = 0; i < (sizeof files / sizeof files[0]); ++i) {
+            if (files[i] != NULL) {
+                fputs(buffer, files[i]);
+            }
+        }
+    }
+
+    for (size_t i = 0; i < sizeof files / sizeof files[0]; ++i) {
+        if (files[i] != NULL) {
+            fclose(files[i]);
+        }
+    }    
 }
