@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <getopt.h>
+#include <stdlib.h>
 
 /// \brief Copy standard input to standard output
 /// \param[in] buffer Storage location of data read from standard input
@@ -89,7 +90,7 @@ void handleProgramOptions(int argc, char* const argv[argc + 1])
             break;
 
         default:
-            break;
+            abort();
         }
 
         // Print any remaining command-line arguments (not options)
