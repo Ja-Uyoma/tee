@@ -55,11 +55,6 @@ void printHelp(void)
     );
 }
 
-/// \brief Null-initialize each element in the array of pointers to FILE
-/// \param[inout] files The array of pointers to FILE
-/// \param[in] arrayLength The length of the array
-static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength);
-
 /// \brief Handle any other non-option command-line arguments
 /// \details This function opens the files passed in as command-line arguments in write mode and then
 /// writes the text input from stdin to those files as well as to stdout
@@ -117,12 +112,7 @@ void handleProgramOptions(int argc, char* const argv[argc + 1])
 /// \brief Null-initialize each element in the array of pointers to FILE
 /// \param[inout] files The array of pointers to FILE
 /// \param[in] arrayLength The length of the array
-static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength)
-{
-    for (size_t i = 0; i < arrayLength; ++i) {
-        files[i] = NULL;
-    }
-}
+static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength);
 
 /// \brief Handle any other non-option command-line arguments
 /// \details This function opens the files passed in as command-line arguments in write mode and then
@@ -163,4 +153,14 @@ static void handleNonOptionArguments(int argc, char* const argv[])
             fclose(files[i]);
         }
     }    
+}
+
+/// \brief Null-initialize each element in the array of pointers to FILE
+/// \param[inout] files The array of pointers to FILE
+/// \param[in] arrayLength The length of the array
+static void nullInitialiseArrayOfFilePointers(FILE* files[], size_t arrayLength)
+{
+    for (size_t i = 0; i < arrayLength; ++i) {
+        files[i] = NULL;
+    }
 }
