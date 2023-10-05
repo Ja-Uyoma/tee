@@ -2,6 +2,10 @@ add_executable(testee)
 
 find_package(cmocka REQUIRED)
 
+target_include_directories(testee 
+    PRIVATE "${PROJECT_SOURCE_DIR}/src"
+)
+
 target_sources(testee
     PUBLIC 
         main.c
