@@ -38,7 +38,7 @@ void printHelp(void)
         "Usage: tee [OPTION]... [FILE]...\n"
         "Copy standard input to each FILE, and also to standard output.\n\n"
         "-a, --append               append to the given FILEs, do not overwrite\n"
-        "-i, --ignore -interrupts   ignore interrupt signals\n"
+        "-i, --ignore-interrupts    ignore interrupt signals\n"
         "-p                         diagnose errors writing to non pipes\n"
         "    --output-error[=MODE]  set behaviour on write error. See MODE below\n"
         "    --help                 display this help and exit\n"
