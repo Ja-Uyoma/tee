@@ -4,7 +4,7 @@
 /// \brief Copy standard input to standard output
 /// \param[in] buffer Storage location of data read from standard input
 /// \param[in] bufsize The size of the buffer
-/// \returns An int representing the error condition that occured
+/// \returns The number of bytes written or errno if an error occured
 int echoToStdout(char buffer[], int const bufsize);
 
 /// \brief Print usage information
