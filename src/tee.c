@@ -11,6 +11,10 @@
 /// \returns The number of lines written to the destination file, or -1 if an error occured 
 int echo(FILE* const src, FILE* const dest)
 {
+    if (src == NULL || dest == NULL) {
+        return -1;
+    }
+
     static char buffer[256] = { '\0' };
     int result = 0;
 
