@@ -5,32 +5,6 @@
 #include <getopt.h>
 #include <stdlib.h>
 
-/// \brief Copy standard input to standard output
-/// \param[in] buffer Storage location of data read from standard input
-/// \param[in] bufsize The size of the buffer
-/// \returns The number of bytes written or errno if an error occured
-int echoToStdout(char buffer[], int const bufsize)
-{
-    int rv = 0;
-    errno = 0;
-
-    while (fgets(buffer, bufsize, stdin) != NULL) {
-        if ((rv = fputs(buffer, stdout)) == EOF) {
-            perror("fputs - could not write to standard output.");
-            return rv;
-        }
-        
-        continue;
-    }
-
-    if (ferror(stdin)) {
-        rv = errno;
-        perror("fgets - Could not read from standard input");
-    }
-
-    return rv;
-}
-
 /// \brief Read data from a source file and write it to a destination file
 /// \param[in] src The source file
 /// \param[in] dest The destination file

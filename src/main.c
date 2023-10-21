@@ -1,15 +1,14 @@
 #include "tee.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int argc, char* const argv[argc + 1])
 {
-    char buffer[512] = { '\0' };
-
     if (argc == 1) {
-        int rv = echoToStdout(buffer, sizeof buffer);
+        int rv = echo(stdin, stdout);
 
-        if (rv != 0) {
+        if (rv == -1) {
             return EXIT_FAILURE;
         }
     }
