@@ -31,6 +31,30 @@ int echoToStdout(char buffer[], int const bufsize)
     return rv;
 }
 
+/// \brief Read data from a source file and write it to a destination file
+/// \param[in] src The source file
+/// \param[in] dest The destination file
+/// \returns The number of lines written to the destination file, or -1 if an error occured 
+int echo(FILE* const src, FILE* const dest)
+{
+    static char buffer[256] = { '\0' };
+    int result = 0;
+
+    while (fgets(buffer, sizeof buffer, src) != NULL) {
+        if ((result += fputs(buffer, dest)) == EOF) {
+            perror("fputs - could not write to dest");
+            break;
+        }
+    }
+
+    if (ferror(src)) {
+        result = -1;
+        perror("fgets - could not read from src");
+    }
+
+    return result;
+}
+
 /// \brief Print usage information
 void printHelp(void)
 {
