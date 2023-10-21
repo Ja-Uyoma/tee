@@ -14,21 +14,22 @@ static void null_test_success(void** state)
     (void) state;
 }
 
-static void echo_returns_successfully_when_passed_null_files(void** state)
+static void echoFailsWhenGivenNullPointersAsInput(void** state)
 {
     (void) state;
 
-    FILE* input = NULL;
-    FILE* output = NULL;
+    FILE* in = NULL;
+    FILE* out = NULL;
 
-    assert_int_equal(echo(input, output), -1);
+    int result = echo(in, out);
+    assert_int_equal(result, -1);
 }
 
 int main(void)
 {
     struct CMUnitTest const tests[] = {
         cmocka_unit_test(null_test_success),
-        cmocka_unit_test(echo_returns_successfully_when_passed_null_files)
+        cmocka_unit_test(echoFailsWhenGivenNullPointersAsInput)
     };
     
     return cmocka_run_group_tests(tests, NULL, NULL);
