@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 // A test case that does nothing and succeeds
-static void null_test_success(void** state)
+static void nullTestSuccess(void** state)
 {
     (void) state;
 }
@@ -28,7 +28,7 @@ static void echoFailsWhenGivenNullPointersAsInput(void** state)
 int main(void)
 {
     struct CMUnitTest const tests[] = {
-        cmocka_unit_test(null_test_success),
+        cmocka_unit_test(nullTestSuccess),
         cmocka_unit_test(echoFailsWhenGivenNullPointersAsInput)
     };
     
