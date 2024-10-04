@@ -9,8 +9,6 @@
 
 #include "tee.h"
 
-#include <stdio.h>
-
 // A test case that does nothing and succeeds
 static void nullTestSuccess(void **state) { (void)state; }
 
