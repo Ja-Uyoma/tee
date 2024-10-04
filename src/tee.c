@@ -72,7 +72,7 @@ static void handleNonOptionArguments(int argc, char *const argv[]);
 /// the program with option "--help" \param[in] argc The number of command-line
 /// options passed to the program \param[in] argv The array of command-line
 /// options passed to the program
-void handleProgramOptions(int argc, char *const argv[argc + 1]) {
+void handleProgramOptions(int argc, char *const argv[]) {
   static struct option const longOptions[] = {
       {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1},
       {0, 0, 0, 0}};
