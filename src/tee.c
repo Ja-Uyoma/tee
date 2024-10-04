@@ -1,7 +1,7 @@
 #include "tee.h"
 
-#include <errno.h>
 #include <getopt.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -117,12 +117,6 @@ void handleProgramOptions(int argc, char *const argv[]) {
 static void nullInitialiseArrayOfFilePointers(FILE *files[],
                                               size_t arrayLength);
 
-/// \brief Close all the open files in the array of FILE*
-/// \details This is a sink function that takes ownership of @c files
-/// \param[in] files The array of FILE*
-/// \param[in] arrayLength The length of the array
-static void closeAllFiles(FILE *files[], size_t arrayLength);
-
 /// \brief Handle any other non-option command-line arguments
 /// \details This function opens the files passed in as command-line arguments
 /// in write mode and then writes the text input from stdin to those files as
@@ -132,13 +126,14 @@ static void closeAllFiles(FILE *files[], size_t arrayLength);
 /// \param[in] argv The array containing the command-line arguments
 static void handleNonOptionArguments(int argc, char *const argv[]) {
   char buffer[256] = {'\0'};
-  FILE *files[argc - optind];
+  size_t const numberOfFiles = argc - optind;
+  FILE *files[numberOfFiles];
 
-  nullInitialiseArrayOfFilePointers(files, sizeof files / sizeof files[0]);
+  nullInitialiseArrayOfFilePointers(files, numberOfFiles);
 
   int optindCopy = optind;
 
-  for (int i = 0; i < argc - optind; ++i) {
+  for (size_t i = 0; i < numberOfFiles; ++i) {
     files[i] = fopen(argv[optindCopy++], "w");
 
     if (!files[i]) {
@@ -150,14 +145,18 @@ static void handleNonOptionArguments(int argc, char *const argv[]) {
   while (fgets(buffer, sizeof buffer, stdin) != NULL) {
     fputs(buffer, stdout);
 
-    for (size_t i = 0; i < (sizeof files / sizeof files[0]); ++i) {
-      if (files[i] != NULL) {
+    for (size_t i = 0; i < numberOfFiles; ++i) {
+      if (files[i]) {
         fputs(buffer, files[i]);
       }
     }
   }
 
-  closeAllFiles(files, sizeof files / sizeof files[0]);
+  for (size_t i = 0; i < numberOfFiles; ++i) {
+    if (files[i] != NULL) {
+      fclose(files[i]);
+    }
+  }
 }
 
 /// \brief Null-initialize each element in the array of pointers to FILE
@@ -167,17 +166,5 @@ static void nullInitialiseArrayOfFilePointers(FILE *files[],
                                               size_t arrayLength) {
   for (size_t i = 0; i < arrayLength; ++i) {
     files[i] = NULL;
-  }
-}
-
-/// \brief Close all the open files in the array of FILE*
-/// \details This is a sink function that takes ownership of @c files
-/// \param[in] files The array of FILE*
-/// \param[in] arrayLength The length of the array
-static void closeAllFiles(FILE *files[], size_t arrayLength) {
-  for (size_t i = 0; i < arrayLength; ++i) {
-    if (files[i]) {
-      fclose(files[i]);
-    }
   }
 }
