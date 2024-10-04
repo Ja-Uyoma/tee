@@ -8,7 +8,7 @@ target_include_directories(testee
 
 target_sources(testee
     PUBLIC 
-        main.c
+        main.test.c
     PRIVATE
         "${PROJECT_SOURCE_DIR}/src/tee.h"
         "${PROJECT_SOURCE_DIR}/src/tee.c"
