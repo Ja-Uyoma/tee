@@ -126,13 +126,14 @@ static void nullInitialiseArrayOfFilePointers(FILE *files[],
 /// \param[in] argv The array containing the command-line arguments
 static void handleNonOptionArguments(int argc, char *const argv[]) {
   char buffer[256] = {'\0'};
-  FILE *files[argc - optind];
+  size_t const numberOfFiles = argc - optind;
+  FILE *files[numberOfFiles];
 
-  nullInitialiseArrayOfFilePointers(files, sizeof files / sizeof files[0]);
+  nullInitialiseArrayOfFilePointers(files, numberOfFiles);
 
   int optindCopy = optind;
 
-  for (int i = 0; i < argc - optind; ++i) {
+  for (size_t i = 0; i < numberOfFiles; ++i) {
     files[i] = fopen(argv[optindCopy++], "w");
 
     if (!files[i]) {
@@ -144,18 +145,16 @@ static void handleNonOptionArguments(int argc, char *const argv[]) {
   while (fgets(buffer, sizeof buffer, stdin) != NULL) {
     fputs(buffer, stdout);
 
-    for (size_t i = 0; i < (sizeof files / sizeof files[0]); ++i) {
-      if (files[i] != NULL) {
+    for (size_t i = 0; i < numberOfFiles; ++i) {
+      if (files[i]) {
         fputs(buffer, files[i]);
       }
     }
   }
 
-  size_t const numberOfFiles = sizeof files / sizeof files[0];
-
-  for (size_t i = 0; i < numberOfFiles;++i) {
+  for (size_t i = 0; i < numberOfFiles; ++i) {
     if (files[i] != NULL) {
-        fclose(files[i]);
+      fclose(files[i]);
     }
   }
 }
