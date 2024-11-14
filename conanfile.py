@@ -5,8 +5,8 @@ class TeeRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeToolchain", "CMakeDeps"
 
-    def requirements(self):
-        self.requires("cmocka/1.1.7")
+    def build_requirements(self):
+        self.test_requires("cmocka/1.1.7")
 
     def layout(self):
         cmake_layout(self)
