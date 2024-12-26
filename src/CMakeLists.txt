@@ -7,6 +7,9 @@ target_sources(tee
 
 target_compile_features(tee PUBLIC c_std_17)
 
-target_compile_options(tee 
-    PUBLIC -Wall -Wextra -Werror -Wpedantic
+target_compile_options(tee
+    PRIVATE
+        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wall -Wextra -Wpedantic -Werror>
+    PRIVATE
+        $<$<CXX_COMPILER_ID:MSVC>:/Wall>
 )
