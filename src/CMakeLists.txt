@@ -5,7 +5,7 @@ target_sources(tee
     PRIVATE tee.h tee.c
 )
 
-target_compile_features(tee PUBLIC c_std_17)
+target_compile_features(tee PUBLIC c_std_23)
 
 target_compile_options(tee
     PRIVATE

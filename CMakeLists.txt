@@ -8,7 +8,7 @@ project(tee
 
 # Only set the C standard if it has not been set elsewhere
 if (NOT DEFINED CMAKE_C_STANDARD)
-    set(CMAKE_C_STANDARD 17)
+    set(CMAKE_C_STANDARD 23)
 endif()
 
 set(CMAKE_C_EXTENSIONS OFF)

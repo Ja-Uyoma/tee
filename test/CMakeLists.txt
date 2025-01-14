@@ -16,7 +16,7 @@ target_sources(tests
 
 target_link_libraries(tests cmocka::cmocka)
 
-target_compile_features(tests PUBLIC c_std_17)
+target_compile_features(tests PUBLIC c_std_23)
 
 target_compile_options(tests
     PUBLIC -Wall -Wextra -Werror -Wpedantic
