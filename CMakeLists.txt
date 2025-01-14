@@ -27,5 +27,5 @@ include(CTest)
 
 if (BUILD_TESTING)
     message("Adding tests...")
-    add_subdirectory(test)
+    add_subdirectory(tests)
 endif()
