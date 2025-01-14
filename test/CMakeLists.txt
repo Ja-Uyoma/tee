@@ -21,3 +21,5 @@ target_compile_features(tests PUBLIC c_std_23)
 target_compile_options(tests
     PUBLIC -Wall -Wextra -Werror -Wpedantic
 )
+
+add_test(NAME test COMMAND test)
