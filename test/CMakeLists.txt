@@ -22,4 +22,4 @@ target_compile_options(tests
     PUBLIC -Wall -Wextra -Werror -Wpedantic
 )
 
-add_test(NAME test COMMAND test)
+add_test(NAME tests COMMAND tests)
