@@ -10,7 +10,8 @@
 /// \param[in] dest The destination file
 /// \returns The number of lines written to the destination file, or -1 if an
 /// error occured
-int echo(FILE *const src, FILE *const dest) {
+int echo(FILE* const src, FILE* const dest)
+{
   if (src == NULL || dest == NULL) {
     return -1;
   }
@@ -34,7 +35,8 @@ int echo(FILE *const src, FILE *const dest) {
 }
 
 /// \brief Print usage information
-void printHelp(void) {
+void print_help(void)
+{
   printf(
       "%s\n",
       "Usage: tee [OPTION]... [FILE]...\n"
@@ -64,7 +66,7 @@ void printHelp(void) {
 ///
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
-static void handleNonOptionArguments(int argc, char *const argv[]);
+static void handle_non_option_arguments(int argc, char* const argv[]);
 
 /// \brief Handle program options
 /// \details This function changes the behaviour of the program depending on the
@@ -72,26 +74,25 @@ static void handleNonOptionArguments(int argc, char *const argv[]);
 /// the program with option "--help" \param[in] argc The number of command-line
 /// options passed to the program \param[in] argv The array of command-line
 /// options passed to the program
-void handleProgramOptions(int argc, char *const argv[]) {
-  static struct option const longOptions[] = {
-      {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1},
-      {0, 0, 0, 0}};
+void handle_program_options(int argc, char* const argv[])
+{
+  static struct option const long_options[] = {
+      {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1}, {0, 0, 0, 0}};
 
-  int currentOption = 0;
-  int currentOptionIndex = 0;
+  int curr_option = 0;
+  int curr_option_idx = 0;
 
-  while ((currentOption = getopt_long(argc, argv, "", longOptions,
-                                      &currentOptionIndex)) != -1) {
-    switch (currentOption) {
-    case 0:
-      break;
+  while ((curr_option = getopt_long(argc, argv, "", long_options, &curr_option_idx)) != -1) {
+    switch (curr_option) {
+      case 0:
+        break;
 
-    case 1:
-      printHelp();
-      break;
+      case 1:
+        print_help();
+        break;
 
-    default:
-      abort();
+      default:
+        abort();
     }
 
     // Print any remaining command-line arguments (not options)
@@ -106,35 +107,40 @@ void handleProgramOptions(int argc, char *const argv[]) {
     }
   }
 
-  if (currentOption == -1 && optind < argc) {
-    handleNonOptionArguments(argc, argv);
+  if (curr_option == -1 && optind < argc) {
+    handle_non_option_arguments(argc, argv);
   }
 }
 
+///
 /// \brief Null-initialize each element in the array of pointers to FILE
-/// \param[inout] files The array of pointers to FILE
-/// \param[in] arrayLength The length of the array
-static void nullInitialiseArrayOfFilePointers(FILE *files[],
-                                              size_t arrayLength);
+/// \param[in,out] files The array of pointers to FILE
+/// \param[in] array_len The length of the array
+///
+static void null_initialise_array_of_file_pointers(FILE* files[], size_t array_len);
 
+///
 /// \brief Handle any other non-option command-line arguments
-/// \details This function opens the files passed in as command-line arguments
+///
+/// This function opens the files passed in as command-line arguments
 /// in write mode and then writes the text input from stdin to those files as
 /// well as to stdout
 ///
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
-static void handleNonOptionArguments(int argc, char *const argv[]) {
+///
+static void handle_non_option_arguments(int argc, char* const argv[])
+{
   char buffer[256] = {'\0'};
-  size_t const numberOfFiles = argc - optind;
-  FILE *files[numberOfFiles];
+  size_t const num_of_files = argc - optind;
+  FILE* files[num_of_files];
 
-  nullInitialiseArrayOfFilePointers(files, numberOfFiles);
+  null_initialise_array_of_file_pointers(files, num_of_files);
 
-  int optindCopy = optind;
+  int optind_copy = optind;
 
-  for (size_t i = 0; i < numberOfFiles; ++i) {
-    files[i] = fopen(argv[optindCopy++], "w");
+  for (size_t i = 0; i < num_of_files; ++i) {
+    files[i] = fopen(argv[optind_copy++], "w");
 
     if (!files[i]) {
       fprintf(stderr, "Could not open file %s\n", argv[optind]);
@@ -145,14 +151,14 @@ static void handleNonOptionArguments(int argc, char *const argv[]) {
   while (fgets(buffer, sizeof buffer, stdin) != NULL) {
     fputs(buffer, stdout);
 
-    for (size_t i = 0; i < numberOfFiles; ++i) {
+    for (size_t i = 0; i < num_of_files; ++i) {
       if (files[i]) {
         fputs(buffer, files[i]);
       }
     }
   }
 
-  for (size_t i = 0; i < numberOfFiles; ++i) {
+  for (size_t i = 0; i < num_of_files; ++i) {
     if (files[i] != NULL) {
       fclose(files[i]);
     }
@@ -162,9 +168,10 @@ static void handleNonOptionArguments(int argc, char *const argv[]) {
 /// \brief Null-initialize each element in the array of pointers to FILE
 /// \param[inout] files The array of pointers to FILE
 /// \param[in] arrayLength The length of the array
-static void nullInitialiseArrayOfFilePointers(FILE *files[],
-                                              size_t arrayLength) {
-  for (size_t i = 0; i < arrayLength; ++i) {
+///
+static void null_initialise_array_of_file_pointers(FILE* files[], size_t array_len)
+{
+  for (size_t i = 0; i < array_len; ++i) {
     files[i] = NULL;
   }
 }

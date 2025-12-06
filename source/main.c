@@ -1,8 +1,9 @@
-#include "tee.h"
-
 #include <stdlib.h>
 
-int main(int argc, char *const argv[argc + 1]) {
+#include "tee.h"
+
+int main(int argc, char* const argv[argc + 1])
+{
   if (argc == 1) {
     int rv = echo(stdin, stdout);
 
@@ -10,7 +11,7 @@ int main(int argc, char *const argv[argc + 1]) {
       return EXIT_FAILURE;
     }
   } else if (argc > 1) {
-    handleProgramOptions(argc, argv);
+    handle_program_options(argc, argv);
   }
 
   return EXIT_SUCCESS;

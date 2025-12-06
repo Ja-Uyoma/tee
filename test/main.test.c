@@ -10,22 +10,27 @@
 #include "tee.h"
 
 // A test case that does nothing and succeeds
-static void nullTestSuccess(void **state) { (void)state; }
+static void null_test_success(void** state)
+{
+  (void)state;
+}
 
-static void echoFailsWhenGivenNullPointersAsInput(void **state) {
+static void echo_fails_when_given_null_pointers_as_input(void** state)
+{
   (void)state;
 
-  FILE *in = NULL;
-  FILE *out = NULL;
+  FILE* in = NULL;
+  FILE* out = NULL;
 
   int result = echo(in, out);
   assert_int_equal(result, -1);
 }
 
-int main(void) {
+int main(void)
+{
   struct CMUnitTest const tests[] = {
-      cmocka_unit_test(nullTestSuccess),
-      cmocka_unit_test(echoFailsWhenGivenNullPointersAsInput)};
+      cmocka_unit_test(null_test_success),
+      cmocka_unit_test(echo_fails_when_given_null_pointers_as_input)};
 
   return cmocka_run_group_tests(tests, NULL, NULL);
 }
