@@ -181,7 +181,7 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1])
 ///
 /// \brief Null-initialize each element in the array of pointers to FILE
 /// \param[inout] files The array of pointers to FILE
-/// \param[in] arrayLength The length of the array
+/// \param[in] array_len The length of the array
 ///
 static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t array_len)
 {
