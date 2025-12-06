@@ -1,25 +1,33 @@
-add_executable(tests)
+# Parent project does not export its library target, so this CMakeLists.txt implicitly
+# depends on being added from it, i.e., the testing is done only from the build tree and
+# is not feasible from an install location
+
+project(teeTests
+    LANGUAGES C
+)
+
+# Dependencies
 
 find_package(cmocka REQUIRED)
 
-target_include_directories(tests
-    PRIVATE "${PROJECT_SOURCE_DIR}/src"
-)
+# Tests
 
-target_sources(tests
-    PUBLIC 
-        main.test.c
+add_executable(tee_test)
+
+target_sources(tee_test
     PRIVATE
-        "${PROJECT_SOURCE_DIR}/src/tee.h"
-        "${PROJECT_SOURCE_DIR}/src/tee.c"
+        main.test.c
 )
 
-target_link_libraries(tests cmocka::cmocka)
-
-target_compile_features(tests PUBLIC c_std_23)
-
-target_compile_options(tests
-    PUBLIC -Wall -Wextra -Werror -Wpedantic
+target_link_libraries(tee_test
+    PRIVATE
+        tee_lib
+        cmocka::cmocka
 )
 
-add_test(NAME tests COMMAND tests)
+target_compile_features(tee_test
+    PRIVATE
+        c_std_23
+)
+
+add_test(NAME tests COMMAND tee_test)
