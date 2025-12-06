@@ -5,11 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+///
 /// \brief Read data from a source file and write it to a destination file
 /// \param[in] src The source file
 /// \param[in] dest The destination file
 /// \returns The number of lines written to the destination file, or -1 if an
 /// error occured
+///
 int echo(FILE* const src, FILE* const dest)
 {
   if (src == NULL || dest == NULL) {
@@ -34,7 +36,9 @@ int echo(FILE* const src, FILE* const dest)
   return result;
 }
 
+///
 /// \brief Print usage information
+///
 void print_help(void)
 {
   printf(
@@ -59,21 +63,30 @@ void print_help(void)
       "writing to non pipe outputs.\0");
 }
 
+///
 /// \brief Handle any other non-option command-line arguments
-/// \details This function opens the files passed in as command-line arguments
+///
+/// This function opens the files passed in as command-line arguments
 /// in write mode and then writes the text input from stdin to those files as
 /// well as to stdout
 ///
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
+///
 static void handle_non_option_arguments(int argc, char* const argv[]);
 
+///
 /// \brief Handle program options
-/// \details This function changes the behaviour of the program depending on the
+///
+/// This function changes the behaviour of the program depending on the
 /// options provided by the user as inputs. For a full list of the options, call
 /// the program with option "--help" \param[in] argc The number of command-line
 /// options passed to the program \param[in] argv The array of command-line
 /// options passed to the program
+///
+/// \param[in] argc The number of command-line arguments passed to the application
+/// \param[in] argv An array of actual command-line arguments passed to the application
+///
 void handle_program_options(int argc, char* const argv[])
 {
   static struct option const long_options[] = {
@@ -165,6 +178,7 @@ static void handle_non_option_arguments(int argc, char* const argv[])
   }
 }
 
+///
 /// \brief Null-initialize each element in the array of pointers to FILE
 /// \param[inout] files The array of pointers to FILE
 /// \param[in] arrayLength The length of the array
