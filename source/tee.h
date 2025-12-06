@@ -10,7 +10,7 @@
 /// \returns The number of lines written to the destination file, or -1 if an
 /// error occured
 ///
-int echo(FILE* const src, FILE* const dest);
+int echo(FILE* src, FILE* dest);
 
 ///
 /// \brief Print usage information
