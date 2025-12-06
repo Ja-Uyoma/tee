@@ -5,9 +5,9 @@
 int main(int argc, char* const argv[argc + 1])
 {
   if (argc == 1) {
-    int rv = echo(stdin, stdout);
+    int result = echo(stdin, stdout);
 
-    if (rv == -1) {
+    if (result == -1) {
       return EXIT_FAILURE;
     }
   } else if (argc > 1) {

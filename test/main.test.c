@@ -19,10 +19,10 @@ static void echo_fails_when_given_null_pointers_as_input(void** state)
 {
   (void)state;
 
-  FILE* in = NULL;
-  FILE* out = NULL;
+  FILE* input = NULL;
+  FILE* output = NULL;
 
-  int result = echo(in, out);
+  int result = echo(input, output);
   assert_int_equal(result, -1);
 }
 
