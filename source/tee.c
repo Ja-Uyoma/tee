@@ -73,7 +73,7 @@ void print_help(void)
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
 ///
-static void handle_non_option_arguments(int argc, char* const argv[]);
+static void handle_non_option_arguments(int argc, char* const argv[static 1]);
 
 ///
 /// \brief Handle program options
@@ -87,7 +87,7 @@ static void handle_non_option_arguments(int argc, char* const argv[]);
 /// \param[in] argc The number of command-line arguments passed to the application
 /// \param[in] argv An array of actual command-line arguments passed to the application
 ///
-void handle_program_options(int argc, char* const argv[])
+void handle_program_options(int argc, char* const argv[static 1])
 {
   static struct option const long_options[] = {
       {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1}, {0, 0, 0, 0}};
@@ -130,7 +130,7 @@ void handle_program_options(int argc, char* const argv[])
 /// \param[in,out] files The array of pointers to FILE
 /// \param[in] array_len The length of the array
 ///
-static void null_initialise_array_of_file_pointers(FILE* files[], size_t array_len);
+static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t array_len);
 
 ///
 /// \brief Handle any other non-option command-line arguments
@@ -142,7 +142,7 @@ static void null_initialise_array_of_file_pointers(FILE* files[], size_t array_l
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
 ///
-static void handle_non_option_arguments(int argc, char* const argv[])
+static void handle_non_option_arguments(int argc, char* const argv[static 1])
 {
   char buffer[256] = {'\0'};
   size_t const num_of_files = argc - optind;
@@ -183,7 +183,7 @@ static void handle_non_option_arguments(int argc, char* const argv[])
 /// \param[inout] files The array of pointers to FILE
 /// \param[in] arrayLength The length of the array
 ///
-static void null_initialise_array_of_file_pointers(FILE* files[], size_t array_len)
+static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t array_len)
 {
   for (size_t i = 0; i < array_len; ++i) {
     files[i] = NULL;

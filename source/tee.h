@@ -27,6 +27,7 @@ void print_help(void);
 ///
 /// \param[in] argc The number of command-line arguments passed to the application
 /// \param[in] argv An array of actual command-line arguments passed to the application
-void handle_program_options(int argc, char* const argv[]);
+///
+void handle_program_options(int argc, char* const argv[static 1]);
 
 #endif
