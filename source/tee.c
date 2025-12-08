@@ -178,7 +178,7 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1])
   for (size_t i = 0; i < num_of_files; ++i) {
     files[i] = fopen(argv[optind_copy++], "w");
 
-    if (!files[i]) {
+    if (files[i] == NULL) {
       fprintf(stderr, "Could not open file %s\n", argv[optind]);
       continue;
     }
@@ -188,7 +188,7 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1])
     fputs(buffer, stdout);
 
     for (size_t i = 0; i < num_of_files; ++i) {
-      if (files[i]) {
+      if (files[i] != NULL) {
         fputs(buffer, files[i]);
       }
     }
