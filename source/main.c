@@ -5,7 +5,7 @@
 
 int main(int argc, char* const argv[argc + 1])
 {
-  if (argc == 1 or echo(stdin, stdout) == -1) {
+  if (argc == 1 and echo(stdin, stdout) == -1) {
     return EXIT_FAILURE;
   }
 
