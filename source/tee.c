@@ -18,7 +18,9 @@ int echo(FILE* const src, FILE* const dest)
     return -1;
   }
 
-  static char buffer[256] = {'\0'};
+#define BUFFER_SIZE 256
+
+  char buffer[BUFFER_SIZE] = {'\0'};
   int result = 0;
 
   while (fgets(buffer, sizeof buffer, src) != NULL) {
@@ -32,6 +34,8 @@ int echo(FILE* const src, FILE* const dest)
     result = -1;
     perror("fgets - could not read from src");
   }
+
+#undef BUFFER_SIZE
 
   return result;
 }
@@ -144,7 +148,9 @@ static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t
 ///
 static void handle_non_option_arguments(int argc, char* const argv[static 1])
 {
-  char buffer[256] = {'\0'};
+#define BUFFER_SIZE 256
+
+  char buffer[BUFFER_SIZE] = {'\0'};
   size_t const num_of_files = argc - optind;
   FILE* files[num_of_files];
 
@@ -176,6 +182,8 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1])
       fclose(files[i]);
     }
   }
+
+#undef BUFFER_SIZE
 }
 
 ///
