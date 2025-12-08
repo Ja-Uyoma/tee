@@ -86,7 +86,7 @@ void print_version(void)
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
 ///
-static void handle_non_option_arguments(int argc, char* const argv[static 1]);
+static void handle_non_option_arguments(int argc, char* const argv[argc + 1]);
 
 ///
 /// \brief Handle program options
@@ -100,7 +100,7 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1]);
 /// \param[in] argc The number of command-line arguments passed to the application
 /// \param[in] argv An array of actual command-line arguments passed to the application
 ///
-void handle_program_options(int argc, char* const argv[static 1])
+void handle_program_options(int argc, char* const argv[argc + 1])
 {
   static struct option const long_options[] = {
       {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1},
@@ -146,10 +146,10 @@ void handle_program_options(int argc, char* const argv[static 1])
 
 ///
 /// \brief Null-initialize each element in the array of pointers to FILE
-/// \param[in,out] files The array of pointers to FILE
 /// \param[in] array_len The length of the array
+/// \param[in,out] files The array of pointers to FILE
 ///
-static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t array_len);
+static void null_initialise_array_of_file_pointers(size_t array_len, FILE* files[array_len]);
 
 ///
 /// \brief Handle any other non-option command-line arguments
@@ -161,7 +161,7 @@ static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
 ///
-static void handle_non_option_arguments(int argc, char* const argv[static 1])
+static void handle_non_option_arguments(int argc, char* const argv[argc + 1])
 {
   assert(argc > optind and "Arithmetic underflow when defining num_of_files");
 
@@ -171,7 +171,7 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1])
   size_t const num_of_files = (size_t)(argc - optind);
   FILE* files[num_of_files];
 
-  null_initialise_array_of_file_pointers(files, num_of_files);
+  null_initialise_array_of_file_pointers(num_of_files, files);
 
   int optind_copy = optind;
 
@@ -205,10 +205,10 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1])
 
 ///
 /// \brief Null-initialize each element in the array of pointers to FILE
-/// \param[inout] files The array of pointers to FILE
 /// \param[in] array_len The length of the array
+/// \param[in,out] files The array of pointers to FILE
 ///
-static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t array_len)
+static void null_initialise_array_of_file_pointers(size_t array_len, FILE* files[array_len])
 {
   for (size_t i = 0; i < array_len; ++i) {
     files[i] = NULL;
