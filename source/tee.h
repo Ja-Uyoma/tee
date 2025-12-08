@@ -17,6 +17,11 @@ int echo(FILE* src, FILE* dest);
 ///
 void print_help(void);
 
+///
+/// \brief Print program version
+///
+void print_version(void);
+
 /// \brief Handle program options
 ///
 /// This function changes the behaviour of the program depending on the

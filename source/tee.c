@@ -67,6 +67,14 @@ void print_help(void)
 }
 
 ///
+/// \brief Print program version
+///
+void print_version(void)
+{
+  puts("tee v0.1");
+}
+
+///
 /// \brief Handle any other non-option command-line arguments
 ///
 /// This function opens the files passed in as command-line arguments
@@ -93,7 +101,9 @@ static void handle_non_option_arguments(int argc, char* const argv[static 1]);
 void handle_program_options(int argc, char* const argv[static 1])
 {
   static struct option const long_options[] = {
-      {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1}, {0, 0, 0, 0}};
+      {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1},
+      {.name = "version", .has_arg = no_argument, .flag = NULL, .val = 2},
+      {0, 0, 0, 0}};
 
   int curr_option = 0;
   int curr_option_idx = 0;
@@ -105,6 +115,10 @@ void handle_program_options(int argc, char* const argv[static 1])
 
       case 1:
         print_help();
+        break;
+
+      case 2:
+        print_version();
         break;
 
       default:
