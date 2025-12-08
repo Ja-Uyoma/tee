@@ -19,7 +19,7 @@ int echo(FILE* const src, FILE* const dest)
     return -1;
   }
 
-#define BUFFER_SIZE 256
+#define BUFFER_SIZE 4096
 
   char buffer[BUFFER_SIZE] = {'\0'};
   int result = 0;
@@ -181,7 +181,7 @@ static void handle_non_option_arguments(
 {
   assert(argc > optind and "Arithmetic underflow when defining num_of_files");
 
-#define BUFFER_SIZE 256
+#define BUFFER_SIZE 4096
 
   char buffer[BUFFER_SIZE] = {'\0'};
   size_t const num_of_files = (size_t)(argc - optind);
