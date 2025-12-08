@@ -85,8 +85,10 @@ void print_version(void)
 ///
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
+/// \param[in] mode_string How the files should be opened
 ///
-static void handle_non_option_arguments(int argc, char* const argv[argc + 1]);
+static void handle_non_option_arguments(
+  int argc, char* const argv[argc + 1], char const mode_string[static 1]);
 
 ///
 /// \brief Handle program options
@@ -105,9 +107,12 @@ int handle_program_options(int argc, char* const argv[argc + 1])
     return -1;
   }
 
+  int result = 0;
+
   static struct option const long_options[] = {
       {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1},
       {.name = "version", .has_arg = no_argument, .flag = NULL, .val = 2},
+      {.name = "append", .has_arg = no_argument, .flag = NULL, .val = 3},
       {0, 0, 0, 0}};
 
   int curr_option = 0;
@@ -126,6 +131,10 @@ int handle_program_options(int argc, char* const argv[argc + 1])
         print_version();
         break;
 
+      case 3: {
+        handle_non_option_arguments(argc, argv, "a");
+      } break;
+
       default:
         abort();
     }
@@ -143,10 +152,10 @@ int handle_program_options(int argc, char* const argv[argc + 1])
   }
 
   if (curr_option == -1 and optind < argc) {
-    handle_non_option_arguments(argc, argv);
+    handle_non_option_arguments(argc, argv, "w");
   }
 
-  return 0;
+  return result;
 }
 
 ///
@@ -165,8 +174,10 @@ static void null_initialise_array_of_file_pointers(size_t array_len, FILE* files
 ///
 /// \param[in] argc The number of command-line arguments
 /// \param[in] argv The array containing the command-line arguments
+/// \param[in] mode_string How the files should be opened
 ///
-static void handle_non_option_arguments(int argc, char* const argv[argc + 1])
+static void handle_non_option_arguments(
+  int argc, char* const argv[argc + 1], char const mode_string[static 1])
 {
   assert(argc > optind and "Arithmetic underflow when defining num_of_files");
 
@@ -181,7 +192,7 @@ static void handle_non_option_arguments(int argc, char* const argv[argc + 1])
   int optind_copy = optind;
 
   for (size_t i = 0; i < num_of_files; ++i) {
-    files[i] = fopen(argv[optind_copy++], "w");
+    files[i] = fopen(argv[optind_copy++], mode_string);
 
     if (files[i] == NULL) {
       fprintf(stderr, "Could not open file %s\n", argv[optind]);
