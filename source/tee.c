@@ -88,7 +88,7 @@ void print_version(void)
 /// \param[in] mode_string How the files should be opened
 ///
 static void handle_non_option_arguments(
-  int argc, char* const argv[argc + 1], char const mode_string[static 1]);
+    int argc, char* const argv[argc + 1], char const mode_string[static 1]);
 
 ///
 /// \brief Handle program options
@@ -177,7 +177,7 @@ static void null_initialise_array_of_file_pointers(size_t array_len, FILE* files
 /// \param[in] mode_string How the files should be opened
 ///
 static void handle_non_option_arguments(
-  int argc, char* const argv[argc + 1], char const mode_string[static 1])
+    int argc, char* const argv[argc + 1], char const mode_string[static 1])
 {
   assert(argc > optind and "Arithmetic underflow when defining num_of_files");
 
