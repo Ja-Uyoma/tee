@@ -24,7 +24,7 @@ int echo(FILE* const src, FILE* const dest)
   int result = 0;
 
   while (fgets(buffer, sizeof buffer, src) != NULL) {
-    if ((result += fputs(buffer, dest)) == EOF) {
+    if (fputs(buffer, dest) == EOF) {
       perror("fputs - could not write to dest");
       break;
     }
