@@ -9,8 +9,7 @@
 /// \brief Read data from a source file and write it to a destination file
 /// \param[in] src The source file
 /// \param[in] dest The destination file
-/// \returns The number of lines written to the destination file, or -1 if an
-/// error occured
+/// \returns 0 on success, or -1 on failure
 ///
 int echo(FILE* const src, FILE* const dest)
 {
@@ -25,14 +24,14 @@ int echo(FILE* const src, FILE* const dest)
 
   while (fgets(buffer, sizeof buffer, src) != NULL) {
     if (fputs(buffer, dest) == EOF) {
-      perror("fputs - could not write to dest");
+      perror("fputs - could not write to destination file");
       break;
     }
   }
 
   if (ferror(src)) {
     result = -1;
-    perror("fgets - could not read from src");
+    perror("fgets - could not read from source file");
   }
 
 #undef BUFFER_SIZE
