@@ -93,9 +93,7 @@ static void handle_non_option_arguments(int argc, char* const argv[argc + 1]);
 ///
 /// This function changes the behaviour of the program depending on the
 /// options provided by the user as inputs. For a full list of the options, call
-/// the program with option "--help" \param[in] argc The number of command-line
-/// options passed to the program \param[in] argv The array of command-line
-/// options passed to the program
+/// the program with option "--help"
 ///
 /// \param[in] argc The number of command-line arguments passed to the application
 /// \param[in] argv An array of actual command-line arguments passed to the application
