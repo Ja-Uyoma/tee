@@ -1,6 +1,7 @@
 #include "tee.h"
 
 #include <getopt.h>
+#include <iso646.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +14,7 @@
 ///
 int echo(FILE* const src, FILE* const dest)
 {
-  if (src == NULL || dest == NULL) {
+  if (src == NULL or dest == NULL) {
     return -1;
   }
 
@@ -137,7 +138,7 @@ void handle_program_options(int argc, char* const argv[static 1])
     }
   }
 
-  if (curr_option == -1 && optind < argc) {
+  if (curr_option == -1 and optind < argc) {
     handle_non_option_arguments(argc, argv);
   }
 }
