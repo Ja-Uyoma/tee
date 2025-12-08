@@ -1,5 +1,6 @@
 #include "tee.h"
 
+#include <assert.h>
 #include <getopt.h>
 #include <iso646.h>
 #include <stddef.h>
@@ -162,10 +163,12 @@ static void null_initialise_array_of_file_pointers(FILE* files[static 1], size_t
 ///
 static void handle_non_option_arguments(int argc, char* const argv[static 1])
 {
+  assert(argc > optind and "Arithmetic underflow when defining num_of_files");
+
 #define BUFFER_SIZE 256
 
   char buffer[BUFFER_SIZE] = {'\0'};
-  size_t const num_of_files = argc - optind;
+  size_t const num_of_files = (size_t)(argc - optind);
   FILE* files[num_of_files];
 
   null_initialise_array_of_file_pointers(files, num_of_files);
