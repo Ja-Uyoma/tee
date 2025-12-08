@@ -144,7 +144,7 @@ int handle_program_options(int argc, char* const argv[argc + 1])
       printf("\n\n%s", "Non-option argv elements: ");
 
       while (optind < argc) {
-        printf("%s", argv[optind++]);
+        printf("%s ", argv[optind++]);
       }
 
       puts("");
