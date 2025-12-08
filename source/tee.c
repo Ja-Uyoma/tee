@@ -99,9 +99,14 @@ static void handle_non_option_arguments(int argc, char* const argv[argc + 1]);
 ///
 /// \param[in] argc The number of command-line arguments passed to the application
 /// \param[in] argv An array of actual command-line arguments passed to the application
+/// \returns A positive value on success, or a negative value on failure
 ///
-void handle_program_options(int argc, char* const argv[argc + 1])
+int handle_program_options(int argc, char* const argv[argc + 1])
 {
+  if (argc == 1 and echo(stdin, stdout) == -1) {
+    return -1;
+  }
+
   static struct option const long_options[] = {
       {.name = "help", .has_arg = no_argument, .flag = NULL, .val = 1},
       {.name = "version", .has_arg = no_argument, .flag = NULL, .val = 2},
@@ -142,6 +147,8 @@ void handle_program_options(int argc, char* const argv[argc + 1])
   if (curr_option == -1 and optind < argc) {
     handle_non_option_arguments(argc, argv);
   }
+
+  return 0;
 }
 
 ///

@@ -32,7 +32,8 @@ void print_version(void);
 ///
 /// \param[in] argc The number of command-line arguments passed to the application
 /// \param[in] argv An array of actual command-line arguments passed to the application
+/// \returns A positive value on success, or a negative value on failure
 ///
-void handle_program_options(int argc, char* const argv[argc + 1]);
+int handle_program_options(int argc, char* const argv[argc + 1]);
 
 #endif
